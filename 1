@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+#include <stack>
+
+bool is_valid(const std::string& s) {
+    std::stack<char> st;
+    for (char c : s) {
+        switch (c) {
+            case '(':
+            case '[':
+            case '{':
+                st.push(c);
+                break;
+            case ')':
+                if (st.empty() || st.top() != '(') return false;
+                st.pop();
+                break;
+            case ']':
+                if (st.empty() || st.top() != '[') return false;
+                st.pop();
+                break;
+            case '}':
+                if (st.empty() || st.top() != '{') return false;
+                st.pop();
+                break;
+        }
+    }
+    return st.empty();
+}
+
+int main() {
+    std::string s;
+    std::cin >> s;
+    if (is_valid(s)) {
+        std::cout << "YES" << "\n";
+    } else {
+        std::cout << "NO" << "\n";
+    }
+}
+
