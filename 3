@@ -1,0 +1,33 @@
+#include <iostream>
+#include <string>
+#include <queue>
+#include <sstream>
+
+int main() {
+    std::priority_queue<int> pq;
+    std::string line;
+
+    while (std::getline(std::cin, line)) {
+        std::istringstream iss(line);
+        std::string command;
+        iss >> command;
+
+        if (command == "CLEAR") {
+            while (!pq.empty()) {
+                pq.pop();
+            }
+        } else if (command == "ADD") {
+            int num;
+            iss >> num;
+            pq.push(num);
+        } else if (command == "EXTRACT") {
+            if (pq.empty()) {
+                std::cout << "CANNOT" << "\n";
+            } else {
+                std::cout << pq.top() << "\n";
+                pq.pop();
+            }
+        }
+    }
+}
+
