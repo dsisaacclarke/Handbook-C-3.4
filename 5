@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <map>
+#include <sstream>
+#include <vector>
+
+int main() {
+    int k;
+    std::cin >> k;
+    std::cin.ignore();
+
+    std::map<std::string, int> word_counts;
+    std::string line;
+
+    while (std::getline(std::cin, line)) {
+        std::istringstream iss(line);
+        std::string word;
+        while (iss >> word) {
+            word_counts[word]++;
+        }
+    }
+
+    std::vector<std::pair<std::string, int>> sorted_words(word_counts.begin(), word_counts.end());
+    std::sort(sorted_words.begin(), sorted_words.end(),
+              [](const auto& a, const auto& b) {
+                  if (a.second != b.second) {
+                      return a.second > b.second;
+                  }
+                  return a.first < b.first;
+              });
+    
+    int count = 0;
+    for (const auto& pair : sorted_words) {
+      std::cout << pair.first << "\t" << pair.second << "\n";
+      if (++count == k)
+          break;
+    }
+}
+
